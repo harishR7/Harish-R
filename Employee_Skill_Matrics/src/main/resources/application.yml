@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@10.90.1.107:1521/SIT
+    username: HR
+    password: HR
+ 
+  
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+    hibernate: 
+      ddl-auto: update
+server: 
+    port : 8010      
