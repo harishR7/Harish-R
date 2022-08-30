@@ -1,7 +1,10 @@
 package com.example.demo.entity;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.chrono.IsoEra;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -47,14 +50,11 @@ public class TransactionLog {
 		
 		@Column(name="created_time")
 		@DateTimeFormat(iso = ISO.TIME)
-		LocalTime createdTime;
-		
-		
-		
-		
+		Time createdTime;
+
 		@Column(name="created_date")
 		@DateTimeFormat(iso = ISO.DATE)
-		LocalDate createdDate;
+		Date createdDate;
 		
 
 	}

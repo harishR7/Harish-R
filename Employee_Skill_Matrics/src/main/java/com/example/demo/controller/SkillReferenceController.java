@@ -20,10 +20,10 @@ public class SkillReferenceController {
 	@Autowired
 	private SkillReferenceService service;
 	
-//	@PostMapping(path = "/skillRef")
-//	public Object addSkillDetails(@RequestBody SkillReference entity) {
-//		return this.service.addSkill(entity);
-//	}
+	@PostMapping(path = "/skillRef")
+	public Object addSkillDetails(@RequestBody SkillReference entity) {
+		return this.service.addSkill(entity);
+	}
 	
 	
 	@GetMapping(path = "/skillRef")

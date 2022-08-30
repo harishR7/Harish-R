@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
-import java.time.LocalDate;
+import java.sql.Date;
+import java.sql.Time;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,14 +43,14 @@ public class User {
 		
 		@Column(name="created_date")
 		@DateTimeFormat(iso = ISO.DATE)
-		LocalDate createdDate;
+		Date createdDate;
 		
 		@Column(name = "created_by")
 		String createdBy;
 		
 		@Column(name="created_time")
 		@DateTimeFormat(iso = ISO.TIME)
-		LocalDate createdTime;
+		Time createdTime;
 
 	
 

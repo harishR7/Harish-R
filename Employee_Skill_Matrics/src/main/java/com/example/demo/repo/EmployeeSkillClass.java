@@ -33,7 +33,8 @@ public class EmployeeSkillClass implements EmployeeSkillRepo {
 	private EmployeeDetailsRepository empRepo;
 	@Autowired
 	private AssociateToManagerRepo associateRepo;
-	
+	@Autowired
+	private EmployeeSkillRepoWithJpa skillWithJpa;
 	@Override
 	public int empSkillUpdate (EmployeeSkills entity) {
 
@@ -62,8 +63,7 @@ public class EmployeeSkillClass implements EmployeeSkillRepo {
 		List<AssociateToManager> empAssociatedList=this.associateRepo.findByManagerId(managerId);
 		for(AssociateToManager eachValue: empAssociatedList) {
 			int value=eachValue.getEmployeeId();
-			
-			
+
 			String basedOnStatus="select * from hr1_emp_skill where status =? and emp_id=?";
 			   Optional<List<EmployeeSkills>>result =Optional.of(template.query(basedOnStatus,BeanPropertyRowMapper.newInstance(EmployeeSkills.class),"DRAFT",value));
 			   if(result.isPresent()) {
@@ -116,7 +116,7 @@ public class EmployeeSkillClass implements EmployeeSkillRepo {
 //			}
 //		 }
 		// return  statusList;
-		//List<EmployeeDetails> nameList=
+		
 		
 		
 	}
@@ -134,24 +134,26 @@ public class EmployeeSkillClass implements EmployeeSkillRepo {
 		List<AssociateToManager> empAssociatedList=this.associateRepo.findByManagerId(managerId);
 		for(AssociateToManager eachValue: empAssociatedList) {
 			int value=eachValue.getEmployeeId();
-			
+			Optional<EmployeeSkills> answer=skillWithJpa.findByEmpIdAndStatus(value, status);
+			if(answer.isPresent()) {
+				return "already updated";
+			}
+			else {
 			String updateStatus="update hr1_emp_skill set status=?,approved_by=?,approved_date=? where emp_id=?";
-			System.out.println(value);
-			System.out.println(name);
-			System.out.println(status);
-			System.out.println(Date.valueOf(LocalDate.now()));
 			Optional<Integer>result =Optional.of(template.update(updateStatus,status,name,Date.valueOf(LocalDate.now()),value));
 			   if(result.isPresent()) {
 				   skillList.add(result.get());
 				   
 			   }
 		}
-		if(skillList.equals(0)) {
+		}
+		
+		if(skillList.isEmpty()) {
 			return "No draft";
 			
 		}
 		else {
-			return skillList;
+			return "updated";
 		}
 	}
 

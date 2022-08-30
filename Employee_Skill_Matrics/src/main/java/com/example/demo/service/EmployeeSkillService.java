@@ -42,9 +42,7 @@ public class EmployeeSkillService {
 		
 		if(empRepo.existsById(entity.getEmpId())) {
 			Optional<SkillReference> result=skillRef.findBySkillName(entity.getSkillName());
-			
-			
-			
+	
 			if(result.isPresent())
 			{
 				int id=skillRef.findBySkillName(entity.getSkillName()).get().getSkillId();
@@ -78,15 +76,30 @@ public class EmployeeSkillService {
 	}
 		
 	public List<EmployeeSkills> findBySkillNameorExp(String name, String experience){
+		
 		return this.skillWithJpa.findBySkillNameorExp(name, experience);
 	}
-	
+	//API-8
 	public Object searchByValue(String name ,String approvedBy,String status){
 		
 		List<EmployeeDetails> list=this.empRepo.findByEmployeeName(name);
 		if(list.isEmpty()) {
-			
-		return this.skillWithJpa.searchByValue(0, approvedBy, status);
+			if(skillWithJpa.findByApprovedByOrStatus(approvedBy, status)) {
+				if(skillWithJpa.findByApprovedBy(approvedBy)) {
+				return this.skillWithJpa.searchByValue(0, approvedBy, status);
+				}
+				else {
+					if(skillWithJpa.findByStatus(status)) {
+						return this.skillWithJpa.searchByValue(0, approvedBy, status);
+					}
+					else {
+						return "invalid AprovedBy Name or Status";
+					}
+				}
+			}
+			else {
+				return "Invalid Name";
+			}
 		}
 		else {
 			int id=this.empRepo.findByEmployeeName(name).get(0).getEmployeeId();
@@ -96,6 +109,7 @@ public class EmployeeSkillService {
 		
 		
 	}
+	//API-7
 	public Object updateStatusAsApproved(String name,String status) {
 		return this.skillrepo.updateStatusAsApproved(name, status);
 	}

@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -7,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -38,13 +42,13 @@ public class SkillReference {
 	
 	@Column(name = "created_date")
 	@DateTimeFormat(iso = ISO.DATE)
-	LocalDate createdDate;
+	Date createdDate;
 	
 	@Column(name = "created_by")
 	String createdBy;
 	
 	@Column(name = "created_time")
 	@DateTimeFormat(iso = ISO.TIME)
-	LocalTime createdTime;
+	Time createdTime;
 
 }
