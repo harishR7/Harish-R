@@ -161,7 +161,7 @@ public class EmployeeSkillClass implements EmployeeSkillRepo {
 			
 		}
 		else {
-			return skillList;
+			return "Updated";
 		}
 	}
 
