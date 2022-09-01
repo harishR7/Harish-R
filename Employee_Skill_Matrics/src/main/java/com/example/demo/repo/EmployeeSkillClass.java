@@ -135,6 +135,7 @@ public class EmployeeSkillClass implements EmployeeSkillRepo {
 		
 		List<AssociateToManager> empAssociatedList=this.associateRepo.findByManagerId(managerId);
 		int empNo=this.associateRepo.findByManagerId(managerId).size();
+		System.out.println(empNo);	
 		for(AssociateToManager eachValue: empAssociatedList) {
 			int value=eachValue.getEmployeeId();
 			System.out.println(value);
@@ -156,12 +157,12 @@ public class EmployeeSkillClass implements EmployeeSkillRepo {
 		}
 		}
 		
-		if(skillList.isEmpty()) {
-			return "No draft";
+		if(skillList.contains(1)) {
+			return "updated" ;
 			
 		}
 		else {
-			return "Updated";
+			return "No draft";
 		}
 	}
 
