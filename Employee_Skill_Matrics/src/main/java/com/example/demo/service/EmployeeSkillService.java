@@ -85,20 +85,10 @@ public class EmployeeSkillService {
 		List<EmployeeDetails> list=this.empRepo.findByEmployeeName(name);
 		if(list.isEmpty()) {
 			if(skillWithJpa.findByApprovedByOrStatus(approvedBy, status)) {
-				if(skillWithJpa.findByApprovedBy(approvedBy)) {
 				return this.skillWithJpa.searchByValue(0, approvedBy, status);
-				}
-				else {
-					if(skillWithJpa.findByStatus(status)) {
-						return this.skillWithJpa.searchByValue(0, approvedBy, status);
-					}
-					else {
-						return "invalid AprovedBy Name or Status";
-					}
-				}
 			}
 			else {
-				return "Invalid Name";
+				return "Invalid input";
 			}
 		}
 		else {

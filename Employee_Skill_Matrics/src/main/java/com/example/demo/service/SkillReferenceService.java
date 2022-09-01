@@ -3,19 +3,15 @@ package com.example.demo.service;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.TemporalType;
-
-import org.hibernate.type.LocalTimeType;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.convert.threetenbp.ThreeTenBackPortJpaConverters.LocalTimeConverter;
+import org.springframework.beans.factory.annotation.Autowired;import org.springframework.data.jpa.convert.threetenbp.ThreeTenBackPortJpaConverters.LocalTimeConverter;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entity.EmployeeDesignation;
+
 import com.example.demo.entity.EmployeeDetails;
 import com.example.demo.entity.SkillReference;
 import com.example.demo.repo.EmployeeDesignationRepo;
 import com.example.demo.repo.EmployeeDetailsRepository;
-import com.example.demo.repo.EmployeeSkillRepo;
+
 import com.example.demo.repo.SkillReferenceRepo;
 
 import static java.util.stream.Collectors.*;
@@ -23,7 +19,7 @@ import static java.util.stream.Collectors.*;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 import java.time.LocalTime;
 
 
