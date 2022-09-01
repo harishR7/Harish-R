@@ -63,11 +63,12 @@ public class EmployeeSkillClass implements EmployeeSkillRepo {
 		List<AssociateToManager> empAssociatedList=this.associateRepo.findByManagerId(managerId);
 		for(AssociateToManager eachValue: empAssociatedList) {
 			int value=eachValue.getEmployeeId();
+			
 
 			String basedOnStatus="select * from hr1_emp_skill where status =? and emp_id=?";
 			   Optional<List<EmployeeSkills>>result =Optional.of(template.query(basedOnStatus,BeanPropertyRowMapper.newInstance(EmployeeSkills.class),"DRAFT",value));
 			   if(result.isPresent()) {
-				   statusList.addAll( result.get());
+				   statusList.addAll(result.get());
 				   
 			   }
 
@@ -127,16 +128,23 @@ public class EmployeeSkillClass implements EmployeeSkillRepo {
 	public Object updateStatusAsApproved(String name,String status) {
 		// TODO Auto-generated method stub
 		List<Integer> skillList=new ArrayList<>();
+		int count=0;
 		List<EmployeeDetails> empList=empRepo.findByEmployeeName(name);
 		List<EmployeeDetails> managerList=empList.stream().filter((e)-> e.getEmployeeDesignationId()==101).collect(toList());
 		int managerId=managerList.get(0).getEmployeeId();
 		
 		List<AssociateToManager> empAssociatedList=this.associateRepo.findByManagerId(managerId);
+		int empNo=this.associateRepo.findByManagerId(managerId).size();
 		for(AssociateToManager eachValue: empAssociatedList) {
 			int value=eachValue.getEmployeeId();
+			System.out.println(value);
 			Optional<EmployeeSkills> answer=skillWithJpa.findByEmpIdAndStatus(value, status);
 			if(answer.isPresent()) {
+				count++;
+				System.out.println(count);
+				if(count==empNo) {
 				return "already updated";
+				}
 			}
 			else {
 			String updateStatus="update hr1_emp_skill set status=?,approved_by=?,approved_date=? where emp_id=?";
@@ -153,7 +161,7 @@ public class EmployeeSkillClass implements EmployeeSkillRepo {
 			
 		}
 		else {
-			return "updated";
+			return skillList;
 		}
 	}
 
