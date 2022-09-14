@@ -56,8 +56,9 @@ public class SkillReferenceService {
 		entity.setCreatedTime(Time.valueOf(LocalTime.now()));
 		int managerId=desRepo.findByDesignation("Manager").getEmployeeDesignationId();
 		List<EmployeeDetails> managerDetails= this.detailrepo.findByEmployeeDesignationId(managerId);
+		//managerDetails.forEach(System.out::println);
 	     managerName=managerDetails.stream().map((e) ->e.getEmployeeName()).collect(toList());
-		
+	  //   managerName.forEach(System.out::println);
 	     if(managerName.contains(entity.getCreatedBy())){
 	     
 	     Optional<SkillReference> skillDetail=this.skillrepo.findBySkillName(entity.getSkillName());
